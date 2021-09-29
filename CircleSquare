@@ -1,0 +1,26 @@
+package assignment;
+import java.io.*;
+import java.util.Scanner;
+
+public class A2 {
+	public static void main(String[] args) throws IOException{
+		System.out.print("Please input the radius of a circle:");
+		A2.CircleSquare();
+	}
+	public static void CircleSquare() throws IOException{
+		double pi = Math.PI;
+		double r,square;
+		System.out.print("input circle's range:");
+		String a;
+		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		//a = br.readLine();
+		
+		Scanner scanner = new Scanner(System.in);
+		a = scanner.nextLine();
+		
+		//r = Double.valueOf(a).doubleValue();
+		r = Double.parseDouble(a);
+		square = pi*r*r;
+		System.out.println("circle's square is\t"+square);
+	}
+}
