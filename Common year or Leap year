@@ -1,0 +1,26 @@
+package assignment;
+
+import java.io.*;
+
+public class A3 {
+	public static void main(String[] args) throws IOException{
+		while(true) {
+			A3.YearPrediction();
+		}
+	}
+	public static void YearPrediction() throws IOException{
+		System.out.print("input a year:");
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String a;
+		a = br.readLine();
+		int b;
+		b = Integer.valueOf(a);
+		System.out.print(b);
+		if((b%4==0&&b%100!=0)|(b%400==0)) {
+			System.out.println(" Is a leap year!!!!!!");
+		}
+		else {
+			System.out.println(" Is a common year!!!!!!");
+		}
+	}
+}
