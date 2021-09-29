@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class A1 {
 	public static void main(String[] args) throws IOException{
+	System.out.print("Please input three number:");
 		A1.plusFunction();
 	}
 	/*
