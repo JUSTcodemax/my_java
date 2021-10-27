@@ -2,6 +2,7 @@ public class Try{
 	public static void main(String[] args) {
 		//System.out.println("你好，中国！");
 		/*
+		* attention:boolean value->(s1==s2)+(' 'or anything) is always false
 		 * String地址的异同情况
 		String s1 = "aaaaaaaaaaaa";
 		String s2=s1;
@@ -11,6 +12,7 @@ public class Try{
 		String s6="avdvhsv";
 		System.out.print("s1==s2:");
 		System.out.println(s1==s2);    //true
+		System.out.print("s1==s2:"+s1==s2);//it must be false!!!!!!
 		System.out.print("s1==s3:");
 		System.out.println(s1==s3);    //true
 		System.out.print("s4==s5:");
