@@ -1,0 +1,193 @@
+public class Try{
+	public static void main(String[] args) {
+		//System.out.println("你好，中国！");
+		/*
+		 * String地址的异同情况
+		String s1 = "aaaaaaaaaaaa";
+		String s2=s1;
+		String s3="aaaaaaaaaaaa";
+		String s4 = new String("avdvhsv");
+		String s5=s4;
+		String s6="avdvhsv";
+		System.out.print("s1==s2:");
+		System.out.println(s1==s2);    //true
+		System.out.print("s1==s3:");
+		System.out.println(s1==s3);    //true
+		System.out.print("s4==s5:");
+		System.out.println(s4==s5);    //true
+		System.out.print("s4==s6:");
+		System.out.println(s4==s6);    //false
+		*/
+	}
+}
+
+/*
+public class Try{
+	public static void main(String[] args) {
+		int age=0;
+		age = age + 1;
+		System.out.println("The age is " + age);
+		byte num_1 = 1;
+		byte num_2 = 2;
+		int num_3 = num_1 + num_2;
+		System.out.println("The num_3 is " + num_3);
+		int num_4 = 6;
+		long num_5 = 7;
+		int num_6 = num_4 + (int)num_5;
+		System.out.println("The num_9 is " + num_6);
+		float num_7 = 8;
+		double num_8 = 9;
+		double num_9 = num_7 + num_8;
+		System.out.println("The num_9 is " + num_9);
+	}
+}
+*/
+/*
+public class Try{
+	public static void main(String[] args) {
+		int height=1, width=1;
+		float weight;
+		float kg;
+		int age;
+		{
+			age = 9;
+			kg = 3.25F;
+			System.out.println("height is " + height + "width is " + width);
+			System.out.println("age is " + age + "kg is " + kg);
+			
+		}
+		weight = kg;
+		System.out.println("weight is " + weight);
+		System.out.println("height is " + height + "width is " + width);
+		System.out.println("age is " + age + "kg is " + kg);
+	}
+}
+*/
+
+
+/*
+public class Try {
+
+	public static void main(String[] args){
+		Animal animal_1 = new Dog();
+		Animal animal_2 = new Cat();
+		Dog dog = (Dog) animal_1;
+		Dog dog1 = new Dog();
+		
+		animal_1.voice();
+		animal_1.selfAnimal();
+		System.out.println(animal_1.name);
+		System.out.println("------------------");
+		dog.voice();
+		dog.selfAnimal();
+		dog.selfDog();
+		System.out.println(dog.name);
+		System.out.println("------------------");
+		dog1.voice();
+		dog1.selfAnimal();
+		dog1.selfDog();
+		System.out.println(dog1.name);
+		System.out.println("------------------");
+		whichAnimalVoice(animal_1);
+		whichAnimalVoice(animal_2);
+		
+	}
+	
+	public static void whichAnimalVoice(Animal a) {
+		a.voice();
+	}
+}
+*/
+/*
+public class Try{
+	public static void main(String[] args) {
+		B b=new B(0);
+		int y=b.getY();
+	}
+}
+class A{
+	public static int x=2;
+	private int y=2;
+	protected int z;
+	A(){
+		x=x+1;
+		showX();
+	}
+	
+	public void showX() {
+		System.out.println("A.x="+x);
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+}
+
+class B extends A{
+	B(int x){
+		x=x+2;
+		showX();
+	}
+	
+	public void showX() {
+		System.out.println("B.x="+x);
+	}
+	
+	public int getY() {
+		System.out.println("B.y="+(super.getY()+x));
+		return super.getY()+x;
+	}
+}
+*/
+/*
+public class Try{
+	public static void main(String[] args) {
+		A a1=new A();
+		A a2=new B();
+		B b=new B();
+		C c=new C();
+		D d=new D();
+		System.out.println(a1.show(b));//A and A
+		System.out.println(a1.show(c));//A and C
+		System.out.println(a1.show(d));//A and D
+		System.out.println(a2.show(b));//B and B-B and A
+		System.out.println(a2.show(c));//B and C
+		System.out.println(a2.show(d));//B and B-A and D
+		System.out.println(b.show(b));//B and B
+		System.out.println(b.show(c));//B and C
+		System.out.println(b.show(d));//B and B-A and D
+	}
+}
+
+class A{
+	public String show(D obj) {
+		return ("A and D");
+	}
+	
+	public String show(A obj) {
+		return ("A and A");
+	}
+	
+	public String show(C obj) {
+		return ("A and C");
+	}
+}
+
+class B extends A{
+	public String show(B obj) {
+		return ("B and B");
+	}
+	
+	public String show(A obj) {
+		return ("B and A");
+	}
+	
+	public String show(C obj) {
+		return ("B and C");
+	}
+}
+
+class C extends B{}
+class D extends B{}
+*/
