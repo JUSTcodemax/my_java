@@ -1,0 +1,465 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+public class Calculator extends JFrame implements ActionListener {
+
+	public static void main(String[] args) {
+		new Calculator();
+	}
+
+	String[] fir = { "MC", "MR", "MS", "M+", "M-" };
+	String[] sec = { "←", "CE", "C", "±", "√" };
+	String[] thr = { "7", "8", "9", "/", "%" };
+	String[] fort = { "4", "5", "6", "*", "1/x" };
+	static String str = "";
+	static String str1 = "";
+	static double result = 0;
+	static char symbol = 0;
+	char[] stri = new char[50];
+	private static JTextField text = new JTextField("0", 25);
+	private static JTextField text1 = new JTextField("0", 25);
+
+	public Calculator() {
+		JFrame jf = new JFrame("计算器");
+		JButton[] btn = new JButton[28];
+		jf.setBounds(100, 100, 300, 400);
+		jf.setResizable(false);
+		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		jf.setVisible(true);
+		JMenuBar menubar = new JMenuBar();
+		jf.setJMenuBar(menubar);
+		String str[] = { "查看", "编辑", "帮助" };
+		JMenu menu[] = new JMenu[str.length];
+		for (int i = 0; i < str.length; i++) {
+			menu[i] = new JMenu(str[i]);
+			menubar.add(menu[i]);
+		}
+		JPanel p1 = new JPanel();
+		p1.setLayout(new GridLayout(4, 5, 4, 4));
+		for (int i = 0; i < fir.length; i++) {
+			btn[i] = new JButton(fir[i]);
+			p1.add(btn[i]);
+		}
+		for (int i = 0; i < sec.length; i++) {
+			btn[i + fir.length] = new JButton(sec[i]);
+			p1.add(btn[i + fir.length]);
+		}
+		for (int i = 0; i < thr.length; i++) {
+			btn[i + fir.length + sec.length] = new JButton(thr[i]);
+			p1.add(btn[i + fir.length + sec.length]);
+		}
+		for (int i = 0; i < fort.length; i++) {
+			btn[i + fir.length + sec.length + thr.length] = new JButton(fort[i]);
+			p1.add(btn[i + fir.length + sec.length + thr.length]);
+		}
+		p1.setPreferredSize(new Dimension(280, 150));
+		text.setEditable(false);
+		text.setHorizontalAlignment(JTextField.RIGHT);
+		text1.setEditable(false);
+		text1.setHorizontalAlignment(JTextField.RIGHT);
+		JPanel p2 = new JPanel();
+
+		JPanel p4 = new JPanel();
+		p4.setLayout(new BorderLayout(2, 4));
+		btn[20] = new JButton("1");
+		btn[21] = new JButton("2");
+		btn[22] = new JButton("3");
+		btn[23] = new JButton("-");
+		btn[24] = new JButton("=");
+		btn[25] = new JButton("0");
+		btn[26] = new JButton(".");
+		btn[27] = new JButton("+");
+		p4.add(btn[20], "West");
+		p4.add(btn[21], "East");
+		p4.add(btn[25], "South");
+		p4.setPreferredSize(new Dimension(90, 56));
+		p2.add(p4);
+
+		JPanel p5 = new JPanel();
+		p5.setLayout(new GridLayout(2, 1, 4, 4));
+		p5.add(btn[22]);
+		p5.add(btn[26]);
+		p5.setPreferredSize(new Dimension(70, 56));
+		p2.add(p5);
+
+		JPanel p6 = new JPanel();
+		p6.setLayout(new BorderLayout(0, 2));
+		p6.add(btn[23], "North");
+		p6.add(btn[27], "South");
+		JPanel p7 = new JPanel();
+		p7.setLayout(new BorderLayout(2, 0));
+		p7.add(p6);
+		p7.add(btn[24], "East");
+		p7.setPreferredSize(new Dimension(100, 56));
+
+		p2.add(p7);
+
+		JPanel p3 = new JPanel();
+		p3.setLayout(new FlowLayout());
+		p3.add(text1);
+		p3.add(text);
+		p3.add(p1);
+		p3.add(p2);
+		jf.getContentPane().add(p3);
+		for (int i = 0; i < btn.length; i++) {
+			btn[i].addActionListener(this);
+		}
+	}
+
+	class judge {
+		public static void jud(char a) {
+			if (a == 0) {
+				if (str.length() == 0) {
+					result = 0;
+				}
+				else {
+					result = Double.parseDouble(str);
+				}
+			}
+			else {
+				switch (a) {
+				case 43:
+					result += Double.parseDouble(str);
+					text1.setText(String.valueOf(result));
+					break;
+				case 45:
+					result -= Double.parseDouble(str);
+					text1.setText(String.valueOf(result));
+					break;
+				case 42:
+					result *= Double.parseDouble(str);
+					text1.setText(String.valueOf(result));
+					break;
+				case 47:
+
+					double aa;
+
+					aa = Double.parseDouble(str);
+					if (aa == 0) {
+						text1.setText("除数不能为0");
+						str1 = "";
+						str = "";
+						result = 0;
+						break;
+					}
+					result = (result / aa);
+					text1.setText(String.valueOf(result));
+					break;
+				}
+			}
+		}
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		String action = e.getActionCommand();
+		for (int i = 0; i < fir.length; i++) {
+			if (action == fir[i]) {
+				System.out.println(fir[i]);
+			}
+		}
+		if (action.equals(sec[0])) {
+			handleBackspace();
+		} else if (action.equals(sec[1])) {
+			handleCe();
+		} else if (action.equals(sec[2])) {
+			handleC();
+		} else if (action.equals(sec[3])) {
+			handleMinus();
+		} else if (action.equals(sec[4])) {
+			handleSqrt();
+		} else if (action.equals(thr[3])) {
+			handleDiv();
+		} else if (action.equals("+")) {
+			handleAdd();
+		} else if (action.equals("-")) {
+			handleSub();
+		} else if (action.equals(fort[3])) {
+			handleMul();
+		} else if (action.equals(fort[4])) {
+			handleInvert();
+		} else if (action.equals("=")) {
+			handleEqu();
+		} else if (action.equals("0")) {
+			handleNum(0);
+		} else if (action.equals("1")) {
+			handleNum(1);
+		} else if (action.equals("2")) {
+			handleNum(2);
+		} else if (action.equals("3")) {
+			handleNum(3);
+		} else if (action.equals("4")) {
+			handleNum(4);
+		} else if (action.equals("5")) {
+			handleNum(5);
+		} else if (action.equals("6")) {
+			handleNum(6);
+		} else if (action.equals("7")) {
+			handleNum(7);
+		} else if (action.equals("8")) {
+			handleNum(8);
+		} else if (action.equals("9")) {
+			handleNum(9);
+		}
+		else if (action.equals(".")) {
+			handleDot();
+		}
+		else{
+			handleNone((String)action);
+		}
+	}
+
+	public void handleBackspace() {
+		if (str.length() == 0) {
+			text1.setText("");
+		} else {
+			char ss[] = str.toCharArray();
+			ss[str.length() - 1] = 32;
+			str = String.valueOf(ss);
+			str = str.trim();
+			text1.setText(str);
+		}
+	}
+
+	public void handleCe() {
+		str = "";
+		text1.setText(str);
+	}
+
+	public void handleC() {
+		/*
+		 * str = ""; text.setText(str);
+		 */
+		str = "";
+		text1.setText(str);
+		str1 = "";
+		text.setText(str1);
+		result = 0;
+		symbol = 0;
+	}
+
+	public void handleMinus() {
+		if (str.length() == 0) {
+			text.setText(str1);
+			double t = -result;
+			str = String.valueOf(t);
+			text.setText(str1);
+			text1.setText(str);
+		} else {
+			double dd = Double.parseDouble(str);
+			str = String.valueOf(-dd);
+			text.setText(str1);
+			text1.setText(str);
+		}
+	}
+
+	public void handleSqrt() {
+		if (str.length() == 0) {
+			text.setText(str1);
+			double t = Math.sqrt(result);
+			str = String.valueOf(t);
+			text.setText(str1);
+			text1.setText(str);
+		} else {
+			double dd = Double.parseDouble(str);
+			dd = Math.sqrt(dd);
+			;
+			str = String.valueOf(dd);
+			text.setText(str1);
+			text1.setText(str);
+		}
+	}
+
+	public void handleDiv() {
+		int r;
+		r = str1.length();
+		if (r > 0 && str.length() == 0)
+		{
+			char a[] = str1.toCharArray();
+			if (a[r - 1] < 48 || a[r - 1] > 57)
+			{
+				a[str1.length() - 1] = 47;
+				str1 = String.valueOf(a);
+				text.setText(str1);
+				symbol = 47;
+				return;
+			}
+		}
+
+		if (str.length() == 0)
+		{
+			str1 = new String("0");
+			text1.setText("0");
+		}
+		str1 += str + new String("÷");
+		text.setText(str1);
+		judge.jud(symbol);
+		symbol = 47;
+		text.setText(str1);
+		str = "";
+	}
+
+	public void handleAdd() {
+		int r;
+		r = str1.length();
+		if (r > 0 && str.length() == 0) {
+			char a[] = str1.toCharArray();
+			if (a[r - 1] < 48 || a[r - 1] > 57) {
+				a[str1.length() - 1] = 43;
+				str1 = String.valueOf(a);
+				text.setText(str1);
+				symbol = 43;
+				return;
+			}
+		}
+		if (str.length() == 0)
+		{
+			str1 = new String("0");
+			text1.setText("0");
+		}
+		str1 += str + new String("+");
+		text.setText(str1);
+		judge.jud(symbol);
+		symbol = 43;
+		text.setText(str1);
+		str = "";
+	}
+
+	public void handleSub() {
+		int r;
+		r = str1.length();
+		if (r > 0 && str.length() == 0) {
+			char a[] = str1.toCharArray();
+			if (a[r - 1] < 48 || a[r - 1] > 57) {
+				a[str1.length() - 1] = 45;
+				str1 = String.valueOf(a);
+				text.setText(str1);
+				symbol = 45;
+				return;
+			}
+		}
+
+		if (str.length() == 0)
+		{
+			str1 = new String("0");
+			text1.setText("0");
+		}
+		str1 += str + new String("-");
+		text.setText(str1);
+		judge.jud(symbol);
+		symbol = 45;
+		text.setText(str1);
+		str = "";
+	}
+
+	public void handleMul() {
+		int r;
+		r = str1.length();
+		if (r > 0 && str.length() == 0) {
+			char a[] = str1.toCharArray();
+			if (a[r - 1] < 48 || a[r - 1] > 57) {
+				a[str1.length() - 1] = 42;
+				str1 = String.valueOf(a);
+				text.setText(str1);
+				symbol = 42;
+				return;
+			}
+		} //
+
+		if (str.length() == 0)
+		{
+			str1 = new String("1");
+			text1.setText("0");
+			result = 1;
+		}
+		str1 += str + new String("*");
+		text.setText(str1);
+		judge.jud(symbol);
+		symbol = 42;
+		text.setText(str1);
+		str = "";
+	}
+
+	public void handleInvert() {
+		if (str.length() == 0) {
+
+			text.setText(str1);
+			double t = 1 / result;
+			str = String.valueOf(t);
+
+			text.setText(str1);
+			text1.setText(str);
+		} else {
+			double dd = Double.parseDouble(str);
+			dd = 1 / dd;
+			str = String.valueOf(dd);
+
+			text.setText(str1);
+			text1.setText(str);
+		}
+	}
+
+	public void handleEqu() {
+		int r;
+		r = str1.length();
+		if (r > 0 && str.length() == 0)
+		{
+			char a[] = str1.toCharArray();
+			if (a[r - 1] < 48 || a[r - 1] > 57) {
+				text.setText("0");
+				text1.setText(String.valueOf(result));
+				return;
+			}
+		}
+		judge.jud(symbol);
+		text.setText("0");
+		str1 = "";
+		str = "";
+		symbol = 0;
+	}
+
+	public void handleNum(int num) {
+		switch (num) {
+		case 0:
+			str += 0;
+			break;
+		case 1:
+			str += 1;
+			break;
+		case 2:
+			str += 2;
+			break;
+		case 3:
+			str += 3;
+			break;
+		case 4:
+			str += 4;
+			break;
+		case 5:
+			str += 5;
+			break;
+		case 6:
+			str += 6;
+			break;
+		case 7:
+			str += 7;
+			break;
+		case 8:
+			str += 8;
+			break;
+		case 9:
+			str += 9;
+			break;
+		}
+		text1.setText(str);
+	}
+	public void handleDot() {
+		str += ".";
+		text1.setText(str);
+	}
+	public void handleNone(String action) {
+		str = action;
+		text1.setText(str);
+	}
+}
