@@ -9,7 +9,7 @@ public class SendCard extends Thread{
 	public void run() {
 		for(int i=0;i<=10;i++) {
 			for(int j=0;j<4;j++) {
-				String ch = String.valueOf(r.nextInt(12)+1);
+				String ch = String.valueOf(r.nextInt(12)+1);   //get a number from1 to 13,and then do a change 11->J,12->Q,13->K
 				if(ch.equals("1")) {
 					ch = "A";
 				}
