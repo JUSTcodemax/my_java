@@ -1,0 +1,34 @@
+import java.util.Random;
+
+public class SendCard extends Thread{
+	private CardBuffer cbr;
+	Random r = new Random();
+	public SendCard(CardBuffer cbr) {
+		this.cbr = cbr;
+	}
+	public void run() {
+		for(int i=0;i<=10;i++) {
+			for(int j=0;j<4;j++) {
+				String ch = String.valueOf(r.nextInt(12)+1);
+				if(ch.equals("1")) {
+					ch = "A";
+				}
+				else if(ch.equals("11")) {
+					ch = "J";
+				}
+				else if(ch.equals("12")) {
+					ch = "Q";
+				}
+				else if(ch.equals("13")) {
+					ch = "K";
+				}
+				cbr.put(ch);
+				try {
+					sleep(100);
+				}catch(InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}
