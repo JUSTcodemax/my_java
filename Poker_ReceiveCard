@@ -1,0 +1,30 @@
+public class ReceiveCard extends Thread{
+// 0,2,3,1 is the direction of sending cards
+	private CardBuffer cbr;
+	private CardJFrame cjr;
+	public ReceiveCard(CardBuffer cbr,CardJFrame cjr) {
+		this.cbr = cbr;
+		this.cjr = cjr;
+	}
+	public void run() {
+		while(true) {
+		for(int i=0,j=0;i<4;i++) {
+			synchronized(cbr) {
+			String ch = cbr.get();
+			cjr.addText(ch, j);
+			switch(j) {
+			case 0:j+=2;break;
+			case 2:j+=1;break;
+			case 3:j-=2;break;
+			case 1:j-=1;break;
+			}
+			}
+			try {
+				sleep(1000);
+			}catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		}
+	}
+}
