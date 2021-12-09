@@ -1,0 +1,73 @@
+import java.io.*;
+
+public class Writer0 {
+	private static String filename;
+	public Writer0(String filename){
+		this.filename = filename;
+	}
+	public static void WriteContent() throws IOException{
+		File file0 = new File("content.txt");
+		FileWriter fw0 = new FileWriter(file0);
+		String content = "你我他\n你\n我\n他";
+		fw0.write(content);
+		fw0.close();
+		System.out.println("Successfully write in "+file0.getName());
+	}
+	public static void main(String[] args) throws IOException{
+		byte[] buffer = new byte[20];
+		WriteContent();
+		FileReader fr = new FileReader("content.txt");
+		BufferedReader br = new BufferedReader(fr);
+		BufferedReader br1 = new BufferedReader(new FileReader("content.txt"));
+		PrintContent(br);
+		WriteContent0(br1);
+		fr.close();
+		br.close();
+		br1.close();
+	}
+	public static void PrintContent(BufferedReader br) throws IOException{
+		int count=0;
+		String aline="";
+		do {
+			aline = br.readLine();
+			count++;
+			if(aline != null && aline.length() != 0) {
+				System.out.print("the "+count+" line:");
+				System.out.println(aline);
+			}
+			else {
+				System.out.println("the "+count+" line is empty");
+			}
+		}while(aline != null);
+	}
+	public static void WriteContent0(BufferedReader br) throws IOException{
+		char[] buffer = new char[20];
+		String aline = "",text="";
+		File file = new File("writein.txt");
+		FileWriter fw = new FileWriter(file);
+		do {
+			aline = br.readLine();
+			if(aline != null) {
+				text += aline;
+				text += "\r\n";
+			}
+		}while(aline != null);
+		text = text.substring(0,text.length()-2);
+		br.close();
+		fw.write(text);
+		fw.close();
+		System.out.println("Successfully write in "+file.getName());
+		FileReader fr = new FileReader(file);
+		BufferedReader br1 = new BufferedReader(fr);
+		text = "";
+		do {
+			aline = br1.readLine();
+			if(aline != null) {
+				text += aline;
+				text += "\r\n";
+			}
+		}while(aline != null);
+		text = text.substring(0,text.length()-2);//"\r\n".length()=1   !!!!
+		System.out.print("In the "+file.getName()+":\n"+text);//println also has a '\n',don't forget it!!!!!
+	}
+}
