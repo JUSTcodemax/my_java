@@ -1,0 +1,154 @@
+import java.io.*;
+
+public class Writer1 {
+	public static void WriteContent() throws IOException{
+		File file0 = new File("content.txt");
+		FileWriter fw0 = new FileWriter(file0);
+		String content = "你我他\n你\n我\n他\n123\n12\n13\n23\n1\n2\n3";
+		fw0.write(content);
+		fw0.close();
+		System.out.println("Successfully write in "+file0.getName());
+	}
+	
+	public static void main(String[] args) throws IOException{
+		WriteContent();
+		FileInputStream fin = new FileInputStream("content.txt");
+		PrintByte(fin);
+		fin.close();
+		BufferedReader br = new BufferedReader(new FileReader("content.txt"));
+		BufferedReader br1 = new BufferedReader(new FileReader("content.txt"));
+		PrintChar(br);
+		ClassWrite0(br1);
+		br.close();
+		FileInputStream fin1 = new FileInputStream("content.txt");
+		ClassWrite1(fin1);
+		fin1.close();
+	}
+	public static void PrintByte(FileInputStream fin) throws IOException{
+		int count0 = 0;
+		byte[] buffer = new byte[50];
+		do {
+			count0 = fin.read(buffer);
+			if(count0 != -1)
+				System.out.println("本次读入"+count0+"个字节");
+			for( int i=0;i<count0;i++) {
+				System.out.println("buffer["+i+"]="+buffer[i]+",对应的字符为："+(char)buffer[i]);
+			}
+		}while(count0 != -1);
+	}
+	public static void PrintChar(BufferedReader br) throws IOException{
+		int count1 = 0;
+		String aline="";
+		do {
+			aline = br.readLine();
+			if(aline != null) {
+				count1 = aline.length();
+				System.out.println("本次读入"+count1+"个字符，为："+aline);
+			}
+		}while(aline != null);
+	}
+	public static void ClassWrite0(BufferedReader br) throws IOException{
+		int count1 = 0;
+		String aline="";
+		File onename = new File("onename.txt");
+		File twoname = new File("twoname.txt");
+		File threename = new File("threename.txt");
+		FileWriter fw1 = new FileWriter(onename);
+		FileWriter fw2 = new FileWriter(twoname);
+		FileWriter fw3 = new FileWriter(threename);
+		do {
+			aline = br.readLine();
+			if(aline != null) {
+				count1 = aline.length();
+				switch(count1) {
+				case 1: fw1.write(aline+'\n');break;
+				case 2: fw2.write(aline+'\n');break;
+				case 3: fw3.write(aline+'\n');break;
+				default:
+					System.out.println("nothing to write!");
+				}
+			}
+		}while(aline != null);
+		System.out.println("Successfully write in "+onename.getName()+" , "+twoname.getName()+" and "+threename.getName());
+		fw1.close();
+		fw2.close();
+		fw3.close();
+	}
+	public static void ClassWrite1(FileInputStream fin) throws IOException{
+		File onebyte = new File("onebyte.txt");
+		File twobyte = new File("twobyte.txt");
+		File threebyte = new File("threebyte.txt");
+		File ninebyte = new File("ninebyte.txt");
+		FileOutputStream fout1 = new FileOutputStream(onebyte);
+		FileOutputStream fout2 = new FileOutputStream(twobyte);
+		FileOutputStream fout3 = new FileOutputStream(threebyte);
+		FileOutputStream fout9 = new FileOutputStream(ninebyte);
+		int count0 = 0,last=-1,i;
+		byte[] buffer = new byte[50];
+		do {
+			count0 = fin.read(buffer);
+			if(count0 != -1) {
+				System.out.println("本次读入"+count0+"个字节");
+			}
+			for(i=0;i<count0;i++) {
+				if(buffer[i] == '\n') {
+					switch(i-last-1) {
+					case 1:for(int j=last+1;j<i;j++) {
+						fout1.write(buffer[j]);
+					}fout1.write('\n');System.out.println("本次读入1个字节，为："+buffer[last+1]);break;
+					case 2:for(int j=last+1;j<i;j++) {
+						fout2.write(buffer[j]);
+					}fout2.write('\n');System.out.print("本次读入2个字节，为：");
+					for(int j=last+1;j<i;j++) {
+						System.out.print(" "+buffer[j]);
+					}System.out.println();break;
+					case 3:for(int j=last+1;j<i;j++) {
+						fout3.write(buffer[j]);
+					}fout3.write('\n');System.out.print("本次读入3个字节，为：");
+					for(int j=last+1;j<i;j++) {
+						System.out.print(" "+buffer[j]);
+					}System.out.println();break;
+					case 9:for(int j=last+1;j<i;j++) {
+						fout9.write(buffer[j]);
+					}fout9.write('\n');System.out.print("本次读入9个字节，为：");
+					for(int j=last+1;j<i;j++) {
+						System.out.print(" "+buffer[j]);
+					}System.out.println();break;
+					}
+					last=i;
+				}
+			}
+			i--;
+			if(last != i) {
+				switch(i-last) {
+				case 1:for(int j=last+1;j<=i;j++) {
+					fout1.write(buffer[j]);
+				}fout1.write('\n');System.out.println("本次读入1个字节，为："+buffer[last+1]);break;
+				case 2:for(int j=last+1;j<=i;j++) {
+					fout2.write(buffer[j]);
+				}fout2.write('\n');System.out.print("本次读入2个字节，为：");
+				for(int j=last+1;j<i;j++) {
+					System.out.print(" "+buffer[j]);
+				}System.out.println();break;
+				case 3:for(int j=last+1;j<=i;j++) {
+					fout3.write(buffer[j]);
+				}fout3.write('\n');System.out.print("本次读入3个字节，为：");
+				for(int j=last+1;j<i;j++) {
+					System.out.print(" "+buffer[j]);
+				}System.out.println();break;
+				case 9:for(int j=last+1;j<=i;j++) {
+					fout9.write(buffer[j]);
+				}fout9.write('\n');System.out.print("本次读入9个字节，为：");
+				for(int j=last+1;j<i;j++) {
+					System.out.print(" "+buffer[j]);
+				}System.out.println();break;
+				}
+			}
+		}while(count0 != -1);
+		System.out.println("Successfully write in "+onebyte.getName()+" , "+twobyte.getName()+" , "+threebyte.getName()+" and "+ninebyte.getName());
+		fout1.close();
+		fout2.close();
+		fout3.close();
+		fout9.close();
+	}
+}
