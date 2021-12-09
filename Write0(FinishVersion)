@@ -67,7 +67,7 @@ public class Writer0 {
 				text += "\r\n";
 			}
 		}while(aline != null);
-		text = text.substring(0,text.length()-2);//"\r\n".length()=2,"\n".length() =1,but "\r\n" maybe do the same thing like the "\n" though it must be different  !!!!
+		text = text.substring(0,text.length()-2);//"\r\n".length()=2,"\n".length() =1,so substring(,string.length()-1) means get the string[0,string.length()-2],and the length of the substring is less than the string !!!!
 		System.out.print("In the "+file.getName()+":\n"+text);//println also has a '\n',don't forget it!!!!!
 	}
 }
